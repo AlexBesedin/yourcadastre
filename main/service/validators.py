@@ -7,7 +7,7 @@ def validate_cadastral_number(value):
     pattern = r'^\d+:\d+:\d+:\d+$'
     if not re.match(pattern, value):
         raise ValidationError(
-            f'{value} не является действительным кадастровым номером. Ожидаемый формат: XX:XX:XXXX:XXX')
+            f'{value} не правильно введён кадастровый номером. Ожидаемый формат: 12:34:5678:900')
 
 
 def validate_latitude(value):

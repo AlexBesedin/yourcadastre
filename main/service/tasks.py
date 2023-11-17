@@ -5,6 +5,7 @@ from celery import shared_task
 
 @shared_task
 def process_query(query_id):
+    
     time.sleep(random.randint(0, 60)) 
     response = random.choice([True, False])
     

@@ -11,6 +11,7 @@ from .serializers import QueryHistorySerializer, QueryHistoryCreateSerializer, Q
 
 @api_view(['GET'])
 def history(request):
+    """GET запрос, выдающий историю запросов"""
     cadastral_number = request.query_params.get('cadastral_number')
     if cadastral_number:
         queries = QueryHistory.objects.filter(cadastral_number=cadastral_number)
@@ -20,26 +21,13 @@ def history(request):
     return Response(serializer.data)
 
 
-# @swagger_auto_schema(methods=['post'], request_body=QueryHistoryCreateSerializer)
-# @api_view(['POST'])
-# def query(request):
-#     serializer = QueryHistoryCreateSerializer(data=request.data)
-#     if serializer.is_valid():
-#         query_instance = serializer.save(response=None)  # Ответ пока неизвестен
-#         query_instance.save()
-#         return Response({'response': query_instance.response})
-#     return Response(serializer.errors, status=400)
-
 @swagger_auto_schema(methods=['post'], request_body=QueryHistoryCreateSerializer)
 @api_view(['POST'])
 def query(request):
     serializer = QueryHistoryCreateSerializer(data=request.data)
     if serializer.is_valid():
-        query_instance = serializer.save(response=None)  # Сохраняем запрос в БД
-
-        # Отправляем задачу в Celery для асинхронной обработки
-        process_query.delay(query_instance.id)  # Используем ID запроса как аргумент
-
+        query_instance = serializer.save(response=None)
+        process_query.delay(query_instance.id)
         return Response({'status': 'Query received', 'query_id': query_instance.id})
     return Response(serializer.errors, status=400)
 
