@@ -10,7 +10,7 @@ def process_query(query_id):
     response = random.choice([True, False])  # Случайный ответ True или False
 
     # Найти и обновить соответствующий QueryHistory объект
-    from .models import QueryHistory
+    from service.models import QueryHistory
     query_instance = QueryHistory.objects.get(id=query_id)
     query_instance.response = response
     query_instance.save()
