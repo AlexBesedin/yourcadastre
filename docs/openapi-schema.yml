@@ -1,0 +1,108 @@
+swagger: '2.0'
+info:
+  title: CADASTRE API
+  description: API
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+- http
+basePath: /api/v1
+consumes:
+- application/json
+produces:
+- application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+- Basic: []
+paths:
+  /history/:
+    get:
+      operationId: history_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - history
+    parameters: []
+  /ping/:
+    get:
+      operationId: ping_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - ping
+    parameters: []
+  /query/:
+    post:
+      operationId: query_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QueryHistoryCreate'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/QueryHistoryCreate'
+      tags:
+      - query
+    parameters: []
+  /result/:
+    post:
+      operationId: result_create
+      description: ''
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QueryResult'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/QueryResult'
+      tags:
+      - result
+    parameters: []
+definitions:
+  QueryHistoryCreate:
+    required:
+    - cadastral_number
+    - latitude
+    - longitude
+    type: object
+    properties:
+      cadastral_number:
+        title: Кадастровый номер
+        type: string
+        maxLength: 100
+        minLength: 1
+      latitude:
+        title: Широта
+        type: number
+      longitude:
+        title: Долгота
+        type: number
+  QueryResult:
+    required:
+    - query_id
+    - response
+    type: object
+    properties:
+      query_id:
+        title: Query id
+        type: integer
+      response:
+        title: Response
+        type: boolean
