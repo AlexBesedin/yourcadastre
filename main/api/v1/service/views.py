@@ -24,6 +24,7 @@ def history(request):
 @swagger_auto_schema(methods=['post'], request_body=QueryHistoryCreateSerializer)
 @api_view(['POST'])
 def query(request):
+    """Получает запрос, проводит его валидацию и асинхронно обрабатывает."""
     serializer = QueryHistoryCreateSerializer(data=request.data)
     if serializer.is_valid():
         query_instance = serializer.save(response=None)
@@ -35,6 +36,7 @@ def query(request):
 @swagger_auto_schema(methods=['post'], request_body=QueryResultSerializer)
 @api_view(['POST'])
 def result(request):
+    """Получает результат обработанного запроса и обновляет соответствующую запись."""
     serializer = QueryResultSerializer(data=request.data)
     if serializer.is_valid():
         query_id = serializer.validated_data['query_id']
@@ -46,7 +48,7 @@ def result(request):
             query_instance.save()
             return Response({'status': 'успешно'})
         except QueryHistory.DoesNotExist:
-            return Response({'error': 'Query not found'}, status=404)
+            return Response({'error': 'Запрос не найден'}, status=404)
 
     return Response(serializer.errors, status=400)
 
@@ -54,4 +56,5 @@ def result(request):
 
 @api_view(['GET'])
 def ping(request):
+    """Простая вьюха для проверки статуса сервера."""
     return Response({"message": "Сервер запущен"})
