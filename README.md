@@ -31,23 +31,14 @@ cd gyourcadastre/infra/
 sudo docker-compose up -d --build
 sudo docker-compose exec backend python manage.py migrate
 ```
-### Запросы:
-```sh
 
+### Документация:
+```sh
+http://ваш_ip_адрес/api/docs/
 ```
 
-```sh
+АВТОР: 
 
-```
+[Беседин Алексей](https://github.com/AlexBesedin)
 
-```sh
-
-```
-
-```sh
-
-```
-
-```sh
-
-```
+TG: @beszedin
