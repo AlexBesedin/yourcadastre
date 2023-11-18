@@ -28,7 +28,7 @@ def query(request):
     if serializer.is_valid():
         query_instance = serializer.save(response=None)
         process_query.delay(query_instance.id)
-        return Response({'status': 'Query received', 'query_id': query_instance.id})
+        return Response({'status': 'Запрос получен, ожидайте ответа сервера.', 'query_id': query_instance.id})
     return Response(serializer.errors, status=400)
 
 
@@ -44,7 +44,7 @@ def result(request):
             query_instance = QueryHistory.objects.get(id=query_id)
             query_instance.response = response
             query_instance.save()
-            return Response({'status': 'success'})
+            return Response({'status': 'успешно'})
         except QueryHistory.DoesNotExist:
             return Response({'error': 'Query not found'}, status=404)
 
