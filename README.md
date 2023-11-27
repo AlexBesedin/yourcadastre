@@ -34,7 +34,7 @@ sudo docker-compose exec backend python manage.py migrate
 
 ### Документация:
 ```sh
-http://94.131.100.195/api/docs/
+http://ваш-ip-адрес/api/docs/
 ```
 
 АВТОР: 
