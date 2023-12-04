@@ -38,7 +38,5 @@ http://ваш-ip-адрес/api/docs/
 ```
 
 АВТОР: 
-
-[Беседин Алексей](https://github.com/AlexBesedin)
-
-TG: @beszedin
+- [Беседин Алексей](https://github.com/AlexBesedin)
+- TG: @beszedin
